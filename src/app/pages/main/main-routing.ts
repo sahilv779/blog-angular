@@ -4,6 +4,7 @@ import {PostDetailComponent} from './post-detail/post-detail.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {CreatePostComponent} from './create-post/create-post.component';
 import {OAuthRedirectComponent} from './oauth-redirect/oauth-redirect.component';
+import {authGuard} from '../../core/guards/auth.guard';
 
 
 
@@ -18,15 +19,17 @@ export const MAIN_ROUTES: Routes = [
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'create-post',
-        component: CreatePostComponent
+        component: CreatePostComponent,
+        canActivate: [authGuard],
       },
       {
         path: 'oauth-redirect',
-        component: OAuthRedirectComponent
+        component: OAuthRedirectComponent,
       }
     ],
   },

@@ -3,41 +3,44 @@
     <h1 class="text-3xl font-bold mb-6">Your Posts</h1>
 
     <div class="flex justify-end mb-4">
-      <button
+      <button (click)="createPost()"
         class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300"
       >
         Create Post
       </button>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Post Title 1</h2>
-        <button
-          class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 transition duration-300"
-        >
-          Edit
-        </button>
-      </div>
-      <p class="text-gray-700 mb-4">
-        This is the content of the first post. It can be as long or as short as needed.
-      </p>
-      <div class="text-sm text-gray-500">Posted on: 2023-10-01</div>
-    </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6 mt-4">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Post Title 2</h2>
-        <button
-          class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 transition duration-300"
-        >
-          Edit
-        </button>
+    @for(post of posts(); track $index) {
+      <div class="bg-white rounded-lg shadow-md p-6 mt-4">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">{{ post.title }}</h2>
+          <div class="flex space-x-2">
+            <!-- Edit Button -->
+            <button
+              class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600 transition duration-300">
+              Edit
+            </button>
+
+            <!-- View Button -->
+            <button (click)="viewPost(post._id)"
+              class="bg-green-500 text-white py-1 px-3 rounded-md hover:bg-green-600 transition duration-300">
+              View
+            </button>
+
+            <!-- Delete Button -->
+            <button
+              class="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 transition duration-300"
+              (click)="deletePost(post._id)">
+              Delete
+            </button>
+          </div>
+        </div>
+
+        <div class="text-sm text-gray-500">Posted on: {{ post.createdAt | date }}</div>
       </div>
-      <p class="text-gray-700 mb-4">
-        This is the content of the second post. It can be as long or as short as needed.
-      </p>
-      <div class="text-sm text-gray-500">Posted on: 2023-10-02</div>
-    </div>
+
+    }
+
   </div>
 </div>

@@ -248,7 +248,30 @@ export class HttpService {
     });
   }
 
-  protected buildUrl(id?: string | number, newUrl?: string, report?: boolean): string {
+  public delete<T>(id: string | number, query?: { [key: string]: any }, url?: string): Promise<T> {
+    let attempt: number = 0;
+    const fullUrl = this.buildUrl(id, url);
+    const request: Observable<any> = this.http.delete(fullUrl).pipe(
+      retryWhen(errors => errors.pipe(
+        tap(error => {
+          if (error.status > 0 && error.status < 500 || attempt >= this.retryAttempt) {
+            throw error;
+          }
+          attempt += 1;
+        }),
+        delay(2000),
+      )),
+      catchError(error => {
+        throw (error);
+      }));
+    return new Promise((resolve, reject) => request.subscribe(res => {
+      return resolve(res);
+    }, (err) => {
+      return reject(err);
+    }));
+  }
+
+  protected buildUrl(id?: string | number, newUrl?: string): string {
     let url: string = newUrl ? newUrl : this._path;
     if (id) {
       url += `/${id}`;
