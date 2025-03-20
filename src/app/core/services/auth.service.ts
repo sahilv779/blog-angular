@@ -15,4 +15,8 @@ export class AuthService {
     return localStorage.getItem('access_token');
   }
 
+  login() {
+    window.location.href = 'http://localhost:3000/auth/google';
+  }
+
 }

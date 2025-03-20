@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../core/services/auth.service';
-import {AuthGoogleService} from '../../../core/services/auth-google.service';
 
 @Component({
   selector: 'app-oauth-redirect',

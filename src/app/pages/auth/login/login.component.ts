@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import { AuthGoogleService } from '../../../core/services/auth-google.service';
+import {AuthService} from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +9,9 @@ import { AuthGoogleService } from '../../../core/services/auth-google.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  private authGoogleService = inject(AuthGoogleService);
+  private authService = inject(AuthService);
 
   signInWithGoogle(): void {
-    this.authGoogleService.login();
+    this.authService.login();
   }
 }
